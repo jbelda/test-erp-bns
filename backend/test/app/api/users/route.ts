@@ -17,11 +17,11 @@ export async function OPTIONS(request: NextRequest) {
 export async function GET(request: NextRequest) {
   try {
     const { user, error } = authenticate(request);
-    
+
     if (!user) {
       return NextResponse.json(
-        { error: error || 'Authentication required' },
-        { status: 401 }
+          { error: error || 'Authentication required' },
+          { status: 401 }
       );
     }
 
@@ -35,8 +35,8 @@ export async function GET(request: NextRequest) {
       users = await userService.getByCompanyId(user.companyId);
     } else {
       return NextResponse.json(
-        { error: 'Invalid role or missing companyId' },
-        { status: 400 }
+          { error: 'Invalid role or missing companyId' },
+          { status: 400 }
       );
     }
 
@@ -44,8 +44,8 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('Error fetching users:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch users' },
-      { status: 500 }
+        { error: 'Failed to fetch users' },
+        { status: 500 }
     );
   }
 }
@@ -53,19 +53,19 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const { user, error } = authenticate(request);
-    
+
     if (!user) {
       return NextResponse.json(
-        { error: error || 'Authentication required' },
-        { status: 401 }
+          { error: error || 'Authentication required' },
+          { status: 401 }
       );
     }
 
     // Only admins can create users
     if (user.role !== 'admin') {
       return NextResponse.json(
-        { error: 'Insufficient permissions' },
-        { status: 403 }
+          { error: 'Insufficient permissions' },
+          { status: 403 }
       );
     }
 
@@ -74,24 +74,24 @@ export async function POST(request: NextRequest) {
 
     if (!email || !name || !role) {
       return NextResponse.json(
-        { error: 'Missing required fields' },
-        { status: 400 }
+          { error: 'Missing required fields' },
+          { status: 400 }
       );
     }
 
     // Validate role
     if (!['admin', 'employee'].includes(role)) {
       return NextResponse.json(
-        { error: 'Invalid role' },
-        { status: 400 }
+          { error: 'Invalid role' },
+          { status: 400 }
       );
     }
 
     // Employees must have a companyId
     if (role === 'employee' && !companyId) {
       return NextResponse.json(
-        { error: 'Employees must have a companyId' },
-        { status: 400 }
+          { error: 'Employees must have a companyId' },
+          { status: 400 }
       );
     }
 
@@ -106,8 +106,8 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Error creating user:', error);
     return NextResponse.json(
-      { error: 'Failed to create user' },
-      { status: 500 }
+        { error: 'Failed to create user' },
+        { status: 500 }
     );
   }
-} 
+}

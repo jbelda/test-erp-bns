@@ -15,24 +15,24 @@ export async function OPTIONS(request: NextRequest) {
 }
 
 export async function PUT(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+    request: NextRequest,
+    { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { user, error } = authenticate(request);
-    
+
     if (!user) {
       return NextResponse.json(
-        { error: error || 'Authentication required' },
-        { status: 401 }
+          { error: error || 'Authentication required' },
+          { status: 401 }
       );
     }
 
     // Only admins can update companies
     if (user.role !== 'admin') {
       return NextResponse.json(
-        { error: 'Insufficient permissions' },
-        { status: 403 }
+          { error: 'Insufficient permissions' },
+          { status: 403 }
       );
     }
 
@@ -44,16 +44,16 @@ export async function PUT(
     const existingCompany = await companyService.getById(id);
     if (!existingCompany) {
       return NextResponse.json(
-        { error: 'Company not found' },
-        { status: 404 }
+          { error: 'Company not found' },
+          { status: 404 }
       );
     }
 
     // Validate required fields
     if (!name || !address || !phone || !email) {
       return NextResponse.json(
-        { error: 'Missing required fields' },
-        { status: 400 }
+          { error: 'Missing required fields' },
+          { status: 400 }
       );
     }
 
@@ -69,8 +69,8 @@ export async function PUT(
   } catch (error) {
     console.error('Error updating company:', error);
     return NextResponse.json(
-      { error: 'Failed to update company' },
-      { status: 500 }
+        { error: 'Failed to update company' },
+        { status: 500 }
     );
   }
-} 
+}

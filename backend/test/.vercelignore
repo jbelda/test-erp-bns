@@ -1,0 +1,8 @@
+# Solo ignorar archivos innecesarios
+node_modules
+.next
+.git
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local 

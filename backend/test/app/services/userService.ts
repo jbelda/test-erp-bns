@@ -9,19 +9,19 @@ export const userService = {
   async getAllWithCompany(): Promise<UserWithCompany[]> {
     const snapshot = await usersCollection.get();
     const users = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as User));
-    
+
     // Get company data for each user
     const usersWithCompany = await Promise.all(
-      users.map(async (user) => {
-        if (user.companyId) {
-          const companyDoc = await companiesCollection.doc(user.companyId).get();
-          const company = companyDoc.exists ? { id: companyDoc.id, ...companyDoc.data() } as any : undefined;
-          return { ...user, company };
-        }
-        return { ...user, company: undefined };
-      })
+        users.map(async (user) => {
+          if (user.companyId) {
+            const companyDoc = await companiesCollection.doc(user.companyId).get();
+            const company = companyDoc.exists ? { id: companyDoc.id, ...companyDoc.data() } as any : undefined;
+            return { ...user, company };
+          }
+          return { ...user, company: undefined };
+        })
     );
-    
+
     return usersWithCompany;
   },
 
@@ -40,4 +40,4 @@ export const userService = {
     });
     return docRef.id;
   },
-}; 
+};

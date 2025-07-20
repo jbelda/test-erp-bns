@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Company } from '../classes/company';
@@ -10,6 +10,7 @@ import { Company } from '../classes/company';
 export class CompaniesService {
 
   private apiUrl = environment.apiUrl + '/companies';
+  private headers = new HttpHeaders().set('X-Dev-Admin', 'true');
 
   constructor(private http: HttpClient) { }
 
@@ -18,7 +19,7 @@ export class CompaniesService {
    * @returns Observable<Company[]>
    */
   list(): Observable<Company[]> {
-    return this.http.get<Company[]>(this.apiUrl);
+    return this.http.get<Company[]>(this.apiUrl, { headers: this.headers });
   }
 
   /**
@@ -27,7 +28,7 @@ export class CompaniesService {
    * @returns Observable<Company>
    */
   save(company: Company): Observable<Company> {
-    return this.http.post<Company>(this.apiUrl, company);
+    return this.http.post<Company>(this.apiUrl, company, { headers: this.headers });
   }
 
   /**
@@ -39,7 +40,7 @@ export class CompaniesService {
     if (!company.id) {
       throw new Error('Company ID is required for editing');
     }
-    return this.http.put<Company>(`${this.apiUrl}/${company.id}`, company);
+    return this.http.put<Company>(`${this.apiUrl}/${company.id}`, company, { headers: this.headers });
   }
 
   /**
@@ -48,7 +49,7 @@ export class CompaniesService {
    * @returns Observable<Company>
    */
   getById(id: number): Observable<Company> {
-    return this.http.get<Company>(`${this.apiUrl}/${id}`);
+    return this.http.get<Company>(`${this.apiUrl}/${id}`, { headers: this.headers });
   }
 
   /**
@@ -57,6 +58,6 @@ export class CompaniesService {
    * @returns Observable<void>
    */
   delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers: this.headers });
   }
 }

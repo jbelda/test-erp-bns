@@ -21,8 +21,8 @@ export async function POST(request: NextRequest) {
 
     if (!email || !password) {
       return NextResponse.json(
-        { error: 'Email and password are required' },
-        { status: 400 }
+          { error: 'Email and password are required' },
+          { status: 400 }
       );
     }
 
@@ -33,8 +33,8 @@ export async function POST(request: NextRequest) {
 
     if (!user) {
       return NextResponse.json(
-        { error: 'Invalid credentials' },
-        { status: 401 }
+          { error: 'Invalid credentials' },
+          { status: 401 }
       );
     }
 
@@ -42,8 +42,8 @@ export async function POST(request: NextRequest) {
     // For demo purposes, we'll accept any password
     if (password !== 'demo123') {
       return NextResponse.json(
-        { error: 'Invalid credentials' },
-        { status: 401 }
+          { error: 'Invalid credentials' },
+          { status: 401 }
       );
     }
 
@@ -62,8 +62,8 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Login error:', error);
     return NextResponse.json(
-      { error: 'Login failed' },
-      { status: 500 }
+        { error: 'Login failed' },
+        { status: 500 }
     );
   }
-} 
+}
