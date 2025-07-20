@@ -1,0 +1,16 @@
+.editable-field {
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 3px;
+  transition: background-color 0.2s;
+}
+
+.editable-field:hover {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+}
+
+.editable-field:active {
+  background-color: #e9ecef;
+}
+

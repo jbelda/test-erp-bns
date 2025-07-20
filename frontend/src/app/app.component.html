@@ -1,0 +1,89 @@
+<!-- Bootstrap Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="#">
+      <i class="bi bi-building me-2"></i>
+      Company Manager
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/companies" routerLinkActive="active">
+            <i class="bi bi-list-ul me-1"></i>
+            Companies
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/companies/new" routerLinkActive="active">
+            <i class="bi bi-plus-circle me-1"></i>
+            New Company
+          </a>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+<!-- Main Content Area -->
+<main class="container-fluid py-4">
+  <div class="container">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#" class="text-decoration-none">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Companies</li>
+      </ol>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="row">
+      <div class="col-12">
+        <router-outlet />
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-light border-top mt-5">
+  <div class="container py-4">
+    <div class="row">
+      <div class="col-md-6">
+        <h6 class="text-muted mb-3">
+          <i class="bi bi-building me-2"></i>
+          Company Manager
+        </h6>
+        <p class="text-muted small mb-0">
+          a simple test app.
+        </p>
+      </div>
+      <div class="col-md-6 text-md-end">
+        <p class="text-muted small mb-0">
+          © 2025 Company Manager. All rights reserved.
+        </p>
+        <div class="mt-2">
+          <a href="#" class="text-muted text-decoration-none me-3">
+            <i class="bi bi-file-text"></i> Documentation
+          </a>
+          <a href="#" class="text-muted text-decoration-none">
+            <i class="bi bi-github"></i> GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Loading Spinner (hidden by default) -->
+<div class="position-fixed top-50 start-50 translate-middle" style="z-index: 9999; display: none;">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>

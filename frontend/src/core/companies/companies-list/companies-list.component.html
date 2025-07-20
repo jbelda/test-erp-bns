@@ -1,0 +1,74 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>Companies</h2>
+  <button class="btn btn-primary" routerLink="/companies/new">
+    <i class="bi bi-plus-circle"></i> New Company
+  </button>
+</div>
+
+<div class="alert alert-danger" *ngIf="error">
+  {{ error }}
+</div>
+
+<form>
+  <div class="mb-3 row">
+    <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
+    <div class="col-xs-3 col-sm-auto">
+      <input id="table-filtering-search" class="form-control" type="text" [(ngModel)]="searchTerm" name="searchTerm" (ngModelChange)="onSearchChange()" />
+    </div>
+  </div>
+</form>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Address</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Email</th>
+      <th scope="col">Options</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let company of filteredCompanies; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>
+        <input type="text" class="form-control form-control-sm" [(ngModel)]="company.name">
+      </td>
+      <td>
+        <input type="text" class="form-control form-control-sm" [(ngModel)]="company.address">
+      </td>
+      <td>
+        <input type="text" class="form-control form-control-sm" [(ngModel)]="company.phone">
+      </td>
+      <td>
+        <input type="email" class="form-control form-control-sm" [(ngModel)]="company.email">
+      </td>
+      <td>
+        <button class="btn btn-sm btn-outline-primary" 
+                (click)="update(company)"
+                [disabled]="loading || !company.name?.trim() || !company.address?.trim() || !company.phone?.trim() || !company.email?.trim()">
+          <i class="bi bi-pencil"></i> Save
+        </button>
+      </td>
+    </tr>
+    <tr *ngIf="filteredCompanies.length === 0">
+      <td colspan="6" style="text-align: center">No companies found</td>
+    </tr>
+  </tbody>
+</table>
+<!-- Pagination and page size controls can be added here if needed -->
+<div class="d-flex justify-content-between p-2">
+  <ngb-pagination
+    [collectionSize]="collectionSize"
+    [(page)]="page"
+    [pageSize]="pageSize"
+    (pageChange)="loadCompanies()"
+  >
+  </ngb-pagination>
+
+  <select class="form-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="loadCompanies()">
+    <option [ngValue]="2">2 items per page</option>
+    <option [ngValue]="4">4 items per page</option>
+    <option [ngValue]="6">6 items per page</option>
+  </select>
+</div>
