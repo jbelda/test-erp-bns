@@ -15,7 +15,7 @@ export class CompaniesService {
   constructor(private http: HttpClient) { }
 
   /**
-   * Get all companies
+   * Obtener todas las empresas
    * @returns Observable<Company[]>
    */
   list(): Observable<Company[]> {
@@ -23,8 +23,8 @@ export class CompaniesService {
   }
 
   /**
-   * Save a new company
-   * @param company Company data to save
+   * Guardar una nueva empresa
+   * @param company Datos de la empresa a guardar
    * @returns Observable<Company>
    */
   save(company: Company): Observable<Company> {
@@ -32,20 +32,20 @@ export class CompaniesService {
   }
 
   /**
-   * Edit/Update an existing company
-   * @param company Company data to update (must include id)
+   * Editar/Actualizar una empresa existente
+   * @param company Datos de la empresa a actualizar (debe incluir id)
    * @returns Observable<Company>
    */
   edit(company: Company): Observable<Company> {
     if (!company.id) {
-      throw new Error('Company ID is required for editing');
+      throw new Error('Se requiere ID de empresa para editar');
     }
     return this.http.put<Company>(`${this.apiUrl}/${company.id}`, company, { headers: this.headers });
   }
 
   /**
-   * Get a single company by ID
-   * @param id Company ID
+   * Obtener una empresa por ID
+   * @param id ID de la empresa
    * @returns Observable<Company>
    */
   getById(id: number): Observable<Company> {
@@ -53,8 +53,8 @@ export class CompaniesService {
   }
 
   /**
-   * Delete a company
-   * @param id Company ID
+   * Eliminar una empresa
+   * @param id ID de la empresa
    * @returns Observable<void>
    */
   delete(id: number): Observable<void> {

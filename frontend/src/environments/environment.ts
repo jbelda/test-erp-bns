@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000/api'
+  apiUrl: 'https://test-erp-backend-fp8aq48fb-juan-jose-belda-martinezs-projects.vercel.app/api'
 };

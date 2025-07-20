@@ -6,11 +6,11 @@ export interface AuthenticatedRequest extends NextRequest {
 }
 
 export function authenticate(request: NextRequest): { user: JWTPayload | null; error?: string } {
-  // Check for development admin simulation
+  // Verificar simulación de admin en desarrollo
   const isDevAdmin = request.headers.get('X-Dev-Admin') === 'true';
   const isDevelopment = process.env.NODE_ENV === 'development';
 
-  // Auto-simulate admin in development or when X-Dev-Admin header is present
+  // Auto-simular admin en desarrollo o cuando el header X-Dev-Admin está presente
   if (isDevelopment || isDevAdmin) {
     const devCompanyId = request.headers.get('X-Dev-Company-Id');
     const devRole = devCompanyId ? 'employee' : 'admin';
@@ -24,17 +24,17 @@ export function authenticate(request: NextRequest): { user: JWTPayload | null; e
     return { user: simulatedUser };
   }
 
-  // Normal JWT authentication
+  // Autenticación JWT normal
   const authHeader = request.headers.get('authorization');
   const token = authService.extractTokenFromHeader(authHeader);
 
   if (!token) {
-    return { user: null, error: 'No token provided' };
+    return { user: null, error: 'No se proporcionó token' };
   }
 
   const user = authService.verifyToken(token);
   if (!user) {
-    return { user: null, error: 'Invalid token' };
+    return { user: null, error: 'Token inválido' };
   }
 
   return { user };
@@ -45,12 +45,12 @@ export function requireAuth(request: NextRequest): NextResponse | null {
 
   if (!user) {
     return NextResponse.json(
-        { error: error || 'Authentication required' },
+        { error: error || 'Autenticación requerida' },
         { status: 401 }
     );
   }
 
-  return null; // Continue to the next handler
+  return null; // Continuar al siguiente handler
 }
 
 export function requireRole(role: 'admin' | 'employee') {
@@ -59,18 +59,18 @@ export function requireRole(role: 'admin' | 'employee') {
 
     if (!user) {
       return NextResponse.json(
-          { error: error || 'Authentication required' },
+          { error: error || 'Autenticación requerida' },
           { status: 401 }
       );
     }
 
     if (user.role !== role) {
       return NextResponse.json(
-          { error: 'Insufficient permissions' },
+          { error: 'Permisos insuficientes' },
           { status: 403 }
       );
     }
 
-    return null; // Continue to the next handler
+    return null; // Continuar al siguiente handler
   };
 }

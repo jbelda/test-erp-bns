@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
 
     if (!user) {
       const response = NextResponse.json(
-          { error: error || 'Authentication required' },
+          { error: error || 'Autenticación requerida' },
           { status: 401 }
       );
       response.headers.set('Access-Control-Allow-Origin', '*');
@@ -32,10 +32,10 @@ export async function GET(request: NextRequest) {
       return response;
     }
 
-    // Only admins can see all companies
+    // Solo los administradores pueden ver todas las empresas
     if (user.role !== 'admin') {
       const response = NextResponse.json(
-          { error: 'Insufficient permissions' },
+          { error: 'Permisos insuficientes' },
           { status: 403 }
       );
       response.headers.set('Access-Control-Allow-Origin', '*');
@@ -64,9 +64,9 @@ export async function GET(request: NextRequest) {
     response.headers.set('Access-Control-Allow-Credentials', 'true');
     return response;
   } catch (error) {
-    console.error('Error fetching companies:', error);
+    console.error('Error al obtener empresas:', error);
     const response = NextResponse.json(
-        { error: 'Failed to fetch companies' },
+        { error: 'Error al obtener empresas' },
         { status: 500 }
     );
     response.headers.set('Access-Control-Allow-Origin', '*');
@@ -83,7 +83,7 @@ export async function POST(request: NextRequest) {
 
     if (!user) {
       const response = NextResponse.json(
-          { error: error || 'Authentication required' },
+          { error: error || 'Autenticación requerida' },
           { status: 401 }
       );
       response.headers.set('Access-Control-Allow-Origin', '*');
@@ -93,10 +93,10 @@ export async function POST(request: NextRequest) {
       return response;
     }
 
-    // Only admins can create companies
+    // Solo los administradores pueden crear empresas
     if (user.role !== 'admin') {
       const response = NextResponse.json(
-          { error: 'Insufficient permissions' },
+          { error: 'Permisos insuficientes' },
           { status: 403 }
       );
       response.headers.set('Access-Control-Allow-Origin', '*');
@@ -111,7 +111,7 @@ export async function POST(request: NextRequest) {
 
     if (!name || !address || !phone || !email) {
       const response = NextResponse.json(
-          { error: 'Missing required fields' },
+          { error: 'Campos requeridos faltantes' },
           { status: 400 }
       );
       response.headers.set('Access-Control-Allow-Origin', '*');
@@ -136,9 +136,9 @@ export async function POST(request: NextRequest) {
     response.headers.set('Access-Control-Allow-Credentials', 'true');
     return response;
   } catch (error) {
-    console.error('Error creating company:', error);
+    console.error('Error al crear empresa:', error);
     const response = NextResponse.json(
-        { error: 'Failed to create company' },
+        { error: 'Error al crear empresa' },
         { status: 500 }
     );
     response.headers.set('Access-Control-Allow-Origin', '*');
