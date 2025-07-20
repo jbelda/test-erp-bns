@@ -7,13 +7,14 @@ Sistema ERP con frontend en Angular y backend en Next.js con Firebase.
 - `frontend/` - Aplicación Angular
 - `backend/test/` - API REST con Next.js y Firebase
 
-## Backend Setup
+## Firebase Hosting Setup (Opción 1 - Recomendada)
 
 ### Prerrequisitos
 
 - Node.js (versión 18 o superior)
 - npm o yarn
-- Cuenta de Firebase con Firestore habilitado
+- Cuenta de Firebase con Firestore y Hosting habilitado
+- Firebase CLI (`npm install -g firebase-tools`)
 
 ### Configuración de Firebase
 
@@ -31,24 +32,45 @@ Sistema ERP con frontend en Angular y backend en Next.js con Firebase.
    - Coloca el archivo JSON descargado en `backend/test/app/firebaseServiceAccountKey.json`
    - **IMPORTANTE**: Nunca subas este archivo a Git (ya está en .gitignore)
 
+### Configuración del Proyecto Firebase
+
+1. **Crear proyecto en Firebase Console**
+   - Ve a [Firebase Console](https://console.firebase.google.com/)
+   - Crea un nuevo proyecto o usa uno existente
+   - Habilita Firestore Database y Hosting
+
+2. **Configurar archivos del proyecto**
+   - Actualiza `.firebaserc` con tu ID de proyecto
+   - Actualiza `frontend/src/environments/environment.prod.ts` con tu URL de Firebase
+
+3. **Configurar GitHub Secrets (para deploy automático)**
+   - Ve a tu repositorio en GitHub > Settings > Secrets and variables > Actions
+   - Agrega `FIREBASE_SERVICE_ACCOUNT` con el contenido de tu clave de servicio
+
 ### Instalación y Ejecución
 
-1. **Instalar dependencias**
+1. **Instalar todas las dependencias**
    ```bash
-   cd backend/test
-   npm install
+   npm run install:all
    ```
 
 2. **Ejecutar en modo desarrollo**
    ```bash
-   npm run dev
+   # Frontend (Angular)
+   npm run dev:frontend
+   
+   # Backend (Next.js)
+   npm run dev:backend
    ```
-   El servidor se ejecutará en `http://localhost:3000`
 
 3. **Construir para producción**
    ```bash
    npm run build
-   npm start
+   ```
+
+4. **Deploy a Firebase Hosting**
+   ```bash
+   npm run deploy
    ```
 
 ### Variables de Entorno (Opcional)
@@ -62,6 +84,13 @@ Si prefieres usar variables de entorno en lugar del archivo JSON:
    FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
    FIREBASE_CLIENT_EMAIL=firebase-adminsdk-xxxxx@tu-proyecto.iam.gserviceaccount.com
    ```
+
+### URLs de Producción
+
+Una vez desplegado en Firebase Hosting:
+
+- **Frontend:** `https://tu-proyecto-id.web.app/`
+- **API Backend:** `https://tu-proyecto-id.web.app/api/`
 
 ### Endpoints de la API
 
